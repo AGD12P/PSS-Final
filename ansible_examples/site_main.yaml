@@ -1,0 +1,9 @@
+ - hosts: role_alfweb
+   become: true
+   roles:
+    - webserver
+   vars:
+     db_host: "{{ hostvars[groups['role_alfdb'][0]].private_ip_address }}"
+ - hosts: role_alfdb
+   roles:
+    - database
