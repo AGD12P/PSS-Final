@@ -1,0 +1,33 @@
+- name: Install MariaDB server
+  apt:
+    name:
+      - mariadb-server
+      - python3-pymysql   #
+    state: present
+    update_cache: yes
+
+- name: Ensure MariaDB service is running
+  service:
+    name: mariadb
+    state: started
+    enabled: yes
+
+- name: Create WordPress database
+  mysql_db:
+    name: "{{ db_name }}"
+    state: present
+
+- name: Create WordPress DB user
+  mysql_user:
+    name: "{{ db_user }}"
+    password: "{{ db_password }}"
+    priv: "{{ db_name }}.*:ALL"
+    host: '%'
+    state: present
+
+- name: Flush MySQL privileges
+  mysql_user:
+    name: "{{ db_user }}"
+    host: "%"
+    check_implicit_admin: yes
+    state: present
