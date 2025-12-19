@@ -4,7 +4,7 @@ resource "aws_instance" "my_ubuntu_ec2" {
   instance_type   = "t3.micro"  
   key_name        = "key-pair"  
 
-  security_groups = [aws_Empresa_security_group.allow_ssh_http.name]
+  security_groups = [Empresa_security_group.allow_ssh_http.name]
 
   tags = {
     Name = "UbuntuEC2InstanceEmpresa"
